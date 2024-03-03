@@ -16,5 +16,7 @@ public class User implements Serializable {
     private String nome;
     private String email;
     private String password;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_id", referencedColumnName = "id")
+    private Book book;
 }

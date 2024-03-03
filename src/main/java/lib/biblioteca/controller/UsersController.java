@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/")
-public class Controller {
+public class UsersController {
 
     private User user = new User();
 
