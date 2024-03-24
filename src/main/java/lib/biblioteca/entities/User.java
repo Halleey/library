@@ -1,9 +1,11 @@
 package lib.biblioteca.entities;
 import jakarta.persistence.*;
+import lib.biblioteca.enuns.RoleUser;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -19,4 +21,20 @@ public class User implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
+    @Setter
+    @Getter
+    @ElementCollection(targetClass = RoleUser.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<RoleUser> roles;
+
+    public User(String nome, String email, String password, Set<RoleUser> roles) {
+        this.nome = nome;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+    public User() {
+
+    }
 }

@@ -1,5 +1,6 @@
 package lib.biblioteca.controller;
 
+import lib.biblioteca.dto.UserRequestDto;
 import lib.biblioteca.entities.User;
 import lib.biblioteca.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +8,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping("/cadastro")
 public class UsersController {
 
-    private User user = new User();
+    private final UserService userService;
 
     @Autowired
-    UserService userService;
+    public UsersController(UserService userService) {
+        this.userService = userService;
+    }
 
-    @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User savedUser = userService.saveUser(user);
-        return ResponseEntity.ok(savedUser);
+    @PostMapping
+    public ResponseEntity<String> createUser(@RequestBody UserRequestDto requestDto) {
+        userService.saveUser(requestDto);
+        return ResponseEntity.ok("save user ");
+
     }
 }
