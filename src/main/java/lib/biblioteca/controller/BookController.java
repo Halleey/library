@@ -1,5 +1,4 @@
 package lib.biblioteca.controller;
-
 import lib.biblioteca.dto.BookRequestDto;
 import lib.biblioteca.dto.BookResponseDto;
 import lib.biblioteca.services.BookService;
@@ -25,6 +24,7 @@ public class BookController {
         service.save(requestDto);
         return  ResponseEntity.ok("Livro adicionado com sucesso");
     }
+
     @GetMapping
     public ResponseEntity<List<BookResponseDto>> allBooks() {
         List<BookResponseDto> books = service.getAllBooks();

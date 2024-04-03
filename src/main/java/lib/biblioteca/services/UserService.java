@@ -34,7 +34,7 @@ public class UserService {
         }
 
         User userData = new User(
-                requestDto.name(),
+                requestDto.nome(),
                 requestDto.email(),
                 cripted,
                 roles

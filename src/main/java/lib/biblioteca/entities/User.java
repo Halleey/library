@@ -18,14 +18,15 @@ public class User implements Serializable {
     private String nome;
     private String email;
     private String password;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
-    @Setter
-    @Getter
+
     @ElementCollection(targetClass = RoleUser.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(columnDefinition = "ENUM('ROLE_USER', 'ROLE_BIBLIOTECARIO')", length = 100)
     private Set<RoleUser> roles;
 
     public User(String nome, String email, String password, Set<RoleUser> roles) {
