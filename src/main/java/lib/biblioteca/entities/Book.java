@@ -19,8 +19,15 @@ public class Book {
 
     }
 
-    public Book(String nome, String editor) {
+    @ManyToOne
+    @JoinColumn(name = "genero_id")
+    private Genero genero;
+
+    public Book(String nome, String editor, Genero genero) {
         this.nome = nome;
         this.editor = editor;
+        this.genero = genero;
     }
+
+
 }

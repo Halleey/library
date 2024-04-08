@@ -2,7 +2,9 @@ package lib.biblioteca.services;
 import lib.biblioteca.dto.BookRequestDto;
 import lib.biblioteca.dto.BookResponseDto;
 import lib.biblioteca.entities.Book;
+import lib.biblioteca.entities.Genero;
 import lib.biblioteca.repositories.BookRepository;
+import lib.biblioteca.repositories.GeneroRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,15 +15,22 @@ import java.util.Optional;
 public class BookService {
 
     private final BookRepository repository;
-    public BookService(BookRepository repository) {
+    private final GeneroRepository generoRepository;
+    public BookService(BookRepository repository, GeneroRepository generoRepository)
+    {
+        this.generoRepository = generoRepository;
         this.repository = repository;
     }
 
-    public Book save(BookRequestDto requestDto) {
-        Book bookData = new Book(
-                requestDto.nome(),
-                requestDto.editor()
-        );
+    public Book save(BookRequestDto requestDto, Long generoId) {
+        Genero genero = generoRepository.findById(generoId)
+                .orElseThrow(() -> new IllegalArgumentException("Gênero não encontrado"));
+
+        Book bookData = new Book();
+        bookData.setNome(requestDto.nome());
+        bookData.setEditor(requestDto.editor());
+        bookData.setGenero(genero);
+
         return repository.save(bookData);
     }
 

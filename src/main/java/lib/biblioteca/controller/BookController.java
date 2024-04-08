@@ -21,7 +21,7 @@ public class BookController {
 
     @PostMapping()
     public ResponseEntity<String> saveBook(@RequestBody BookRequestDto requestDto) {
-        service.save(requestDto);
+        service.save(requestDto, requestDto.generoId());
         return  ResponseEntity.ok("Livro adicionado com sucesso");
     }
 
