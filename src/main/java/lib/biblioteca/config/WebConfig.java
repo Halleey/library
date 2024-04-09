@@ -19,7 +19,7 @@ public class WebConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
         security.csrf(AbstractHttpConfigurer::disable).
                 authorizeHttpRequests(authorize  -> authorize
-                        .requestMatchers(HttpMethod.POST, "/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/cadastro").permitAll()
                         .anyRequest().hasAnyRole("BIBLIOTECARIO"));
 
         return security.build();
